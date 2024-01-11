@@ -1,4 +1,4 @@
-package com.simple.practice.entity.dao;
+package com.simple.practice.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

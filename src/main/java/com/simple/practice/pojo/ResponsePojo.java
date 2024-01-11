@@ -1,4 +1,4 @@
-package com.simple.practice.controllers.pojo;
+package com.simple.practice.pojo;
 
 public class ResponsePojo {
 	private int statusCode;

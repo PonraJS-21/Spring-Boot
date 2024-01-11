@@ -9,17 +9,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.simple.practice.dao.UserRepository;
 import com.simple.practice.entity.UserEntity;
-import com.simple.practice.entity.dao.UserRepository;
+import com.simple.practice.service.UserService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MyRestController {
 
-	@Autowired
-	UserRepository userRepo;
+	private final UserRepository userRepo;
+	
+	private final UserService userService;
 	
 	// http://localhost:8080/test/YOUR_PATH
 	@GetMapping(value = { "/test", "/test/{path}" })
@@ -27,7 +31,7 @@ public class MyRestController {
 		if (Objects.isNull(path)) {
 			throw new IOException("An Exception Occured");
 		}
-		log.info(userRepo.findAll().toString());
+		userService.firstLevelCache();
 		return new StringBuilder().append("You've sent: ").append(path).toString();
 	}
 	
