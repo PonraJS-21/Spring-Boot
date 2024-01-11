@@ -22,9 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 public class MyRestController {
 
 	private final UserRepository userRepo;
-	
+
 	private final UserService userService;
-	
+
 	// http://localhost:8080/test/YOUR_PATH
 	@GetMapping(value = { "/test", "/test/{path}" })
 	private String test(@PathVariable(required = false) String path) throws IOException {
@@ -32,16 +32,16 @@ public class MyRestController {
 			throw new IOException("An Exception Occured");
 		}
 		userService.firstLevelCache();
+		userService.noCacheInMethod();
 		return new StringBuilder().append("You've sent: ").append(path).toString();
 	}
-	
-	
+
 	@GetMapping(value = { "/getUser", "/getUser/{id}" })
 	private UserEntity getUserById(@PathVariable(required = false) String id) throws IOException {
 		if (Objects.isNull(id)) {
 			throw new IOException("An Exception Occured");
 		}
-		Optional<UserEntity> user= userRepo.findById(id);
+		Optional<UserEntity> user = userRepo.findById(id);
 		if (user.isPresent()) {
 			return user.get();
 		}
