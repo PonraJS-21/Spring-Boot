@@ -13,7 +13,9 @@ import com.simple.practice.pojo.ResponsePojo;
 public class ControllerAdviceExample {
 	@ExceptionHandler
 	public ResponseEntity<ResponsePojo> handler(IOException ex) {
-		ResponsePojo msg = new ResponsePojo(401, HttpStatus.BAD_REQUEST.toString(), ex.getMessage());
+		// If you call an endpoint http://localhost:8080/test instead of
+		// http://localhost:8080/test/YOUR_PATH it'll throw IOexception
+		ResponsePojo msg = new ResponsePojo(400, HttpStatus.BAD_REQUEST.toString(), ex.getMessage());
 		return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
 	}
 }
